@@ -2,6 +2,15 @@ def f(x):
     return 1 / (1 + x**2)
 
 
+# function for finding the trapeze integral of the values
+def find_trapeze(maximum, minimum, no):
+    h = maximum - minimum / no
+    integral = h / 2 * f(minimum) + f(maximum)
+    for i in range(1, no):
+        integral += h * f(minimum + (i * h))
+    return integral
+
+
 inputting = True
 while inputting:
     function = input("Please write the coefficients of polynomial function: \n")
@@ -50,18 +59,9 @@ while inputting:
             else:
                 max = b
                 min = a
-            # calculating step size
-            n = 1
-            h = (max - min) / n
-            # Finding sum
-            integration = f(max) + f(min)
-            for i in range(1, int(n)):
-                k = min + i * h
-                integration = integration + 2 * f(k)
 
-            # Finding final integration value
-            integration = integration * h / 2
-            print(f"Integration by trapezoidal:  {integration}")
+            trapeze_integral = find_trapeze(maximum=max, minimum=min, no=15)
+            print("Integration by trapezoidal method:" + trapeze_integral)
         except:
             print("Please enter a number")
         inputting = False
